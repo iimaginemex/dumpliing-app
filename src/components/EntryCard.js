@@ -14,18 +14,18 @@ export default function EntryCard({ entry, expanded, onToggle, isPosted, onToggl
       <TouchableOpacity onPress={onToggle} activeOpacity={0.7} style={{ flexDirection: 'row', gap: 14, alignItems: 'flex-start' }}>
         <ScoreMeter score={analysis.composite} size={expanded ? 48 : 36} />
         <View style={{ flex: 1 }}>
-          <Text style={{ color: T.text, fontSize: 13, lineHeight: 22, fontFamily: 'JetBrainsMono_400Regular', opacity: expanded ? 1 : 0.85, textDecorationLine: isPosted ? 'line-through' : 'none' }}>{entry.text}</Text>
+          <Text style={{ color: T.text, fontSize: 13, lineHeight: 22, fontFamily: T.F.body, opacity: expanded ? 1 : 0.85, textDecorationLine: isPosted ? 'line-through' : 'none' }}>{entry.text}</Text>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: 6, marginTop: T.S.sm }}>
-            <Text style={{ fontSize: 10, color: T.textFaint, fontFamily: 'JetBrainsMono_400Regular' }}>{relTime(entry.timestamp)}</Text>
+            <Text style={{ fontSize: 10, color: T.textFaint, fontFamily: T.F.body }}>{relTime(entry.timestamp)}</Text>
             {isPosted ? (
               <View style={{ backgroundColor: T.bgSub, borderWidth: 1, borderColor: T.border, paddingVertical: 3, paddingHorizontal: 9, borderRadius: T.R.sm }}>
-                <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 0.9, color: T.textLight, fontFamily: 'JetBrainsMono_700Bold' }}>POSTED {'\u2713'}</Text>
+                <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 0.6, color: T.textLight, fontFamily: T.F.bodyBold }}>POSTED {'\u2713'}</Text>
               </View>
             ) : (
               <>
                 <TierBadge tier={analysis.tier} />
                 {analysis.flags.slice(0, expanded ? 10 : 3).map((f, i) => <FlagBadge key={i} flag={f} />)}
-                {!expanded && analysis.flags.length > 3 && <Text style={{ fontSize: 9, color: T.textLight, fontFamily: 'JetBrainsMono_400Regular' }}>+{analysis.flags.length - 3}</Text>}
+                {!expanded && analysis.flags.length > 3 && <Text style={{ fontSize: 9, color: T.textLight, fontFamily: T.F.body }}>+{analysis.flags.length - 3}</Text>}
               </>
             )}
           </View>
@@ -49,7 +49,7 @@ export default function EntryCard({ entry, expanded, onToggle, isPosted, onToggl
           </View>
 
           <View style={{ marginBottom: T.S.lg }}>
-            <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 1.1, color: T.textLight, fontFamily: 'JetBrainsMono_700Bold', marginBottom: 10 }}>SCORE BREAKDOWN</Text>
+            <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 0.8, color: T.textLight, fontFamily: T.F.bodyBold, marginBottom: 10 }}>SCORE BREAKDOWN</Text>
             <DimensionBar label="Emotion" value={analysis.scores.emotionalIntensity} color={T.red} />
             <DimensionBar label="Tension" value={analysis.scores.narrativeTension} color={T.purple} />
             <DimensionBar label="Value" value={analysis.scores.practicalValue} color={T.accent} />
@@ -59,7 +59,7 @@ export default function EntryCard({ entry, expanded, onToggle, isPosted, onToggl
 
           {analysis.suggestions.length > 0 && !isPosted && (
             <View>
-              <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 1.1, color: T.textLight, fontFamily: 'JetBrainsMono_700Bold', marginBottom: T.S.sm }}>BOOST SUGGESTIONS</Text>
+              <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 0.8, color: T.textLight, fontFamily: T.F.bodyBold, marginBottom: T.S.sm }}>BOOST SUGGESTIONS</Text>
               {analysis.suggestions.map((s, i) => (
                 <View key={i} style={{ padding: T.S.sm, paddingHorizontal: T.S.md, marginBottom: 4, borderRadius: T.R.sm, backgroundColor: T.accentBg, borderWidth: 1, borderColor: T.accentBorder }}>
                   <Text style={{ fontSize: 11, color: T.textMid, lineHeight: 16.5 }}><Text style={{ color: T.accent }}>{'\u2192'} </Text>{s}</Text>

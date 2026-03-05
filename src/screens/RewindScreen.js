@@ -34,7 +34,7 @@ export default function RewindScreen({ entries, threads }) {
       <View style={{ backgroundColor: T.bgCard, borderWidth: 1, borderColor: T.border, borderRadius: T.R.lg, padding: T.S.xxl, marginBottom: T.S.xl, ...T.shadow }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: T.S.sm, marginBottom: T.S.lg }}>
           <Text style={{ color: T.accent, fontSize: 14 }}>{'\u25C6'}</Text>
-          <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 1.3, color: T.accent, fontFamily: 'JetBrainsMono_700Bold' }}>THE REWIND</Text>
+          <Text style={{ fontSize: 10, letterSpacing: 0.9, color: T.accent, fontFamily: T.F.accent }}>THE REWIND</Text>
         </View>
         <Text style={{ color: T.text, fontSize: 14, lineHeight: 24, marginBottom: T.S.lg }}>
           You logged <Text style={{ fontWeight: '700' }}>{entries.length}</Text> thoughts. Your average content score is <Text style={{ fontWeight: '700' }}>{avgScore}</Text>.
@@ -45,11 +45,11 @@ export default function RewindScreen({ entries, threads }) {
 
       {topEntry && (
         <View style={{ backgroundColor: T.bgCard, borderWidth: 1, borderColor: T.border, borderRadius: T.R.lg, padding: T.S.xl, marginBottom: T.S.xl, ...T.shadow }}>
-          <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 1.1, color: T.textLight, fontFamily: 'JetBrainsMono_700Bold', marginBottom: T.S.md }}>HIGHEST SCORING DUMP</Text>
+          <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 0.8, color: T.textLight, fontFamily: T.F.bodyBold, marginBottom: T.S.md }}>HIGHEST SCORING DUMP</Text>
           <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: T.S.md }}>
             <ScoreMeter score={topEntry.analysis.composite} size={44} />
             <View style={{ flex: 1 }}>
-              <Text style={{ color: T.text, fontSize: 13, lineHeight: 21, fontFamily: 'JetBrainsMono_400Regular' }}>{topEntry.text}</Text>
+              <Text style={{ color: T.text, fontSize: 13, lineHeight: 21, fontFamily: T.F.body }}>{topEntry.text}</Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 4, marginTop: T.S.sm }}>
                 <TierBadge tier={topEntry.analysis.tier} />
                 {topEntry.analysis.flags.map((f, i) => <FlagBadge key={i} flag={f} />)}
@@ -60,7 +60,7 @@ export default function RewindScreen({ entries, threads }) {
       )}
 
       <View style={{ backgroundColor: T.bgCard, borderWidth: 1, borderColor: T.border, borderRadius: T.R.lg, padding: T.S.xl, ...T.shadow }}>
-        <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 1.1, color: T.textLight, fontFamily: 'JetBrainsMono_700Bold', marginBottom: 14 }}>CONTENT ANGLES TO EXPLORE</Text>
+        <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 0.8, color: T.textLight, fontFamily: T.F.bodyBold, marginBottom: 14 }}>CONTENT ANGLES TO EXPLORE</Text>
         {angles.map((a, i) => (
           <View key={i} style={{ padding: 14, paddingHorizontal: T.S.lg, marginBottom: T.S.sm, borderRadius: T.R.sm, backgroundColor: T.accentBg, borderWidth: 1, borderColor: T.accentBorder }}>
             <Text style={{ fontSize: 13, fontWeight: '700', color: T.text, marginBottom: 4 }}>{a.angle}</Text>

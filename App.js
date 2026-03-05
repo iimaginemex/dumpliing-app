@@ -1,7 +1,8 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, StatusBar } from 'react-native';
+import React, { useState, useCallback, useMemo, useRef } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, StatusBar, Animated } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { useFonts, JetBrainsMono_400Regular, JetBrainsMono_600SemiBold, JetBrainsMono_700Bold, JetBrainsMono_800ExtraBold } from '@expo-google-fonts/jetbrains-mono';
+import { useFonts, Nunito_400Regular, Nunito_600SemiBold, Nunito_700Bold, Nunito_800ExtraBold } from '@expo-google-fonts/nunito';
+import { KosugiMaru_400Regular } from '@expo-google-fonts/kosugi-maru';
 import * as SplashScreen from 'expo-splash-screen';
 
 import { T } from './src/constants/theme';
@@ -23,7 +24,7 @@ import ShipComposer from './src/screens/ShipComposer';
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  const [fontsLoaded] = useFonts({ JetBrainsMono_400Regular, JetBrainsMono_600SemiBold, JetBrainsMono_700Bold, JetBrainsMono_800ExtraBold });
+  const [fontsLoaded] = useFonts({ Nunito_400Regular, Nunito_600SemiBold, Nunito_700Bold, Nunito_800ExtraBold, KosugiMaru_400Regular });
   const [entries, setEntries] = useState([]);
   const [threads, setThreads] = useState([]);
   const [view, setView] = useState("log");
@@ -75,6 +76,15 @@ export default function App() {
     { id: "threads", label: "THREADS", Icon: ThreadsIcon, count: threads.length },
     { id: "rewind", label: "REWIND", Icon: RewindIcon },
   ];
+
+  const tabAnims = useRef({});
+  const handleTabPress = useCallback((id) => {
+    setView(id);
+    navItems.forEach(item => {
+      if (!tabAnims.current[item.id]) tabAnims.current[item.id] = new Animated.Value(0);
+      Animated.spring(tabAnims.current[item.id], { toValue: item.id === id ? 1 : 0, useNativeDriver: true, friction: 6, tension: 120 }).start();
+    });
+  }, [navItems]);
   const storyReadyCount = entries.filter(e => e.analysis.tier === "STORY-READY").length;
 
   if (!fontsLoaded) return null;
@@ -89,15 +99,15 @@ export default function App() {
           <View style={{ marginBottom: T.S.xxxl }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 6 }}>
               <DumplingIcon size={28} />
-              <Text style={{ fontSize: 26, fontWeight: '900', letterSpacing: -1, color: T.text, fontFamily: 'JetBrainsMono_700Bold' }}>dumpliing</Text>
-              <Text style={{ fontSize: 9, color: T.textFaint, fontFamily: 'JetBrainsMono_400Regular', letterSpacing: 0.7, opacity: 0.6, marginLeft: 2 }}>by BIP ENGINE</Text>
+              <Text style={{ fontSize: 26, letterSpacing: -1, color: T.text, fontFamily: T.F.accent }}>dumpliing</Text>
+              <Text style={{ fontSize: 9, color: T.textFaint, fontFamily: T.F.body, letterSpacing: 0.7, opacity: 0.6, marginLeft: 2 }}>by BIP ENGINE</Text>
             </View>
             <View style={{ backgroundColor: T.accentBg, borderRadius: T.R.pill, paddingVertical: 6, paddingHorizontal: 14, alignSelf: 'flex-start', marginBottom: T.S.md }}>
-              <Text style={{ color: T.textLight, fontSize: 12, fontFamily: 'JetBrainsMono_400Regular', letterSpacing: 0.2 }}>dump it all {'\u2192'} find the story {'\u2192'} build in public</Text>
+              <Text style={{ color: T.textLight, fontSize: 12, fontFamily: T.F.body, letterSpacing: 0.2 }}>dump it all {'\u2192'} find the story {'\u2192'} build in public</Text>
             </View>
             {storyReadyCount > 0 && (
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: T.greenBg, borderWidth: 1, borderColor: 'rgba(93,142,62,0.2)', paddingVertical: 5, paddingHorizontal: 12, borderRadius: T.R.md, alignSelf: 'flex-start' }}>
-                <Text style={{ fontSize: 10, fontWeight: '700', color: T.green, fontFamily: 'JetBrainsMono_700Bold', letterSpacing: 0.5 }}>{storyReadyCount} STORY-READY</Text>
+                <Text style={{ fontSize: 10, fontWeight: '700', color: T.green, fontFamily: T.F.bodyBold, letterSpacing: 0.4 }}>{storyReadyCount} STORY-READY</Text>
                 <Text style={{ fontSize: 10, color: T.textLight }}>dump{storyReadyCount > 1 ? 's' : ''} waiting to be shared</Text>
               </View>
             )}
@@ -116,12 +126,12 @@ export default function App() {
                       <View style={{ height: T.S.md }} />
                       <Text style={{ color: T.textLight, fontSize: 13, lineHeight: 22, textAlign: 'center', maxWidth: 340 }}>Start dumping your thoughts above.{'\n'}<Text style={{ color: T.textFaint }}>Every entry gets scored for content worthiness in real time.</Text></Text>
                       <TouchableOpacity onPress={loadSamples} activeOpacity={0.7} style={{ marginTop: T.S.xl, borderWidth: 1, borderColor: T.border, borderRadius: T.R.sm, paddingVertical: 9, paddingHorizontal: T.S.xl }}>
-                        <Text style={{ color: T.textLight, fontSize: 11, fontFamily: 'JetBrainsMono_400Regular', letterSpacing: 0.3 }}>load sample entries {'\u2192'}</Text>
+                        <Text style={{ color: T.textLight, fontSize: 11, fontFamily: T.F.body, letterSpacing: 0.3 }}>load sample entries {'\u2192'}</Text>
                       </TouchableOpacity>
                     </View>
                   ) : (
                     <View>
-                      <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 1.1, color: T.textFaint, fontFamily: 'JetBrainsMono_700Bold', marginBottom: T.S.md }}>{entries.length} DUMP{entries.length !== 1 ? 'S' : ''} LOGGED{postedIds.size > 0 ? ` \u00B7 ${postedIds.size} POSTED` : ''}</Text>
+                      <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 0.8, color: T.textFaint, fontFamily: T.F.bodyBold, marginBottom: T.S.md }}>{entries.length} DUMP{entries.length !== 1 ? 'S' : ''} LOGGED{postedIds.size > 0 ? ` \u00B7 ${postedIds.size} POSTED` : ''}</Text>
                       {entries.map(entry => (
                         <EntryCard key={entry.id} entry={entry} expanded={expandedEntry === entry.id} onToggle={() => setExpandedEntry(expandedEntry === entry.id ? null : entry.id)} isPosted={postedIds.has(entry.id)} onTogglePosted={togglePosted} onShip={startShipFromEntry} />
                       ))}
@@ -138,28 +148,29 @@ export default function App() {
 
           {/* FOOTER */}
           <View style={{ marginTop: 56, paddingTop: T.S.xl, borderTopWidth: 1, borderTopColor: T.borderLight, alignItems: 'center' }}>
-            <Text style={{ fontSize: 10, color: T.textFaint, fontFamily: 'JetBrainsMono_400Regular', letterSpacing: 0.5, textAlign: 'center' }}>DUMPLIING — a BIP ENGINE tool for builders who can't see their own story</Text>
-            <Text style={{ fontSize: 9, color: T.textFaint, fontFamily: 'JetBrainsMono_400Regular', letterSpacing: 0.3, marginTop: 4, opacity: 0.5, textAlign: 'center' }}>scoring engine: Berger-Milkman arousal model {'\u00B7'} STEPPS {'\u00B7'} SPREAD {'\u00B7'} BIP practitioner data</Text>
+            <Text style={{ fontSize: 10, color: T.textFaint, fontFamily: T.F.body, letterSpacing: 0.4, textAlign: 'center' }}>DUMPLIING — a BIP ENGINE tool for builders who can't see their own story</Text>
+            <Text style={{ fontSize: 9, color: T.textFaint, fontFamily: T.F.body, letterSpacing: 0.3, marginTop: 4, opacity: 0.5, textAlign: 'center' }}>scoring engine: Berger-Milkman arousal model {'\u00B7'} STEPPS {'\u00B7'} SPREAD {'\u00B7'} BIP practitioner data</Text>
           </View>
         </ScrollView>
 
         {/* BOTTOM TAB BAR */}
-        <View style={{ backgroundColor: T.bgCard, borderTopWidth: 1, borderTopColor: T.borderLight, shadowColor: '#2A2215', shadowOffset: { width: 0, height: -2 }, shadowOpacity: 0.04, shadowRadius: 8, elevation: 3 }}>
-          <View style={{ flexDirection: 'row', paddingVertical: 8, paddingBottom: 4 }}>
+        <View style={{ shadowColor: '#2A2215', shadowOffset: { width: 0, height: -2 }, shadowOpacity: 0.04, shadowRadius: 8, elevation: 3 }}>
+          <View style={{ flexDirection: 'row', backgroundColor: T.bgCard, borderWidth: 1, borderColor: T.border, borderRadius: 20, marginHorizontal: 12, marginVertical: 8, alignItems: 'center' }}>
             {navItems.map(item => {
               const active = view === item.id;
+              if (!tabAnims.current[item.id]) tabAnims.current[item.id] = new Animated.Value(active ? 1 : 0);
+              const anim = tabAnims.current[item.id];
+              const scale = anim.interpolate({ inputRange: [0, 1], outputRange: [1, 1.15] });
               return (
-                <TouchableOpacity key={item.id} onPress={() => setView(item.id)} activeOpacity={0.7} style={{ flex: 1, alignItems: 'center', paddingVertical: 4 }}>
-                  <View style={{ position: 'relative' }}>
-                    <item.Icon size={20} color={active ? T.accent : T.textFaint} />
+                <TouchableOpacity key={item.id} onPress={() => handleTabPress(item.id)} activeOpacity={0.7} style={{ flex: 1, alignItems: 'center', justifyContent: 'center', height: 52 }}>
+                  <Animated.View style={{ transform: [{ scale }], alignItems: 'center', justifyContent: 'center', width: 42, height: 42, borderRadius: 14, borderWidth: active ? 1.5 : 1, borderColor: active ? T.accentBorder : 'transparent', backgroundColor: active ? T.accentBg : 'transparent', shadowColor: active ? T.accent : 'transparent', shadowOffset: { width: 0, height: 0 }, shadowOpacity: active ? 0.15 : 0, shadowRadius: active ? 8 : 0, elevation: active ? 3 : 0 }}>
+                    <item.Icon size={22} color={active ? T.accent : T.textFaint} />
                     {item.count > 0 && (
                       <View style={{ position: 'absolute', top: -4, right: -8, backgroundColor: T.accent, borderRadius: T.R.pill, minWidth: 14, height: 14, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 3 }}>
                         <Text style={{ color: '#FFFEF9', fontSize: 8, fontWeight: '800' }}>{item.count}</Text>
                       </View>
                     )}
-                  </View>
-                  <Text style={{ color: active ? T.accent : T.textLight, fontSize: 9, fontWeight: '700', fontFamily: 'JetBrainsMono_700Bold', letterSpacing: 0.5, marginTop: 3 }}>{item.label}</Text>
-                  {active && <View style={{ width: 4, height: 4, borderRadius: 2, backgroundColor: T.accent, marginTop: 3 }} />}
+                  </Animated.View>
                 </TouchableOpacity>
               );
             })}

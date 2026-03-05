@@ -16,7 +16,7 @@ export default function ScoreMeter({ score, size = 44 }) {
         <Circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke={tierStyle.text} strokeWidth={3} strokeDasharray={`${circumference}`} strokeDashoffset={offset} strokeLinecap="round" />
       </Svg>
       <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ fontFamily: 'JetBrainsMono_700Bold', fontSize: size > 40 ? 13 : size > 24 ? 10 : 8, color: tierStyle.text }}>{score}</Text>
+        <Text style={{ fontFamily: T.F.bodyBold, fontSize: size > 40 ? 13 : size > 24 ? 10 : 8, color: tierStyle.text }}>{score}</Text>
       </View>
     </View>
   );

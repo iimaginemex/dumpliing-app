@@ -9,7 +9,8 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@expo-google-fonts/jetbrains-mono": "^0.4.1",
+    "@expo-google-fonts/kosugi-maru": "^0.4.1",
+    "@expo-google-fonts/nunito": "^0.4.2",
     "expo": "^54.0.0",
     "expo-asset": "~12.0.12",
     "expo-clipboard": "~8.0.8",

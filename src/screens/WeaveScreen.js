@@ -26,17 +26,17 @@ export default function WeaveScreen({ entries, postedIds, onShipWeave }) {
       <View style={{ backgroundColor: T.bgCard, borderWidth: 1, borderColor: T.border, borderRadius: T.R.lg, padding: 18, paddingHorizontal: T.S.xl, marginBottom: T.S.xl, ...T.shadow }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: T.S.sm, marginBottom: 10 }}>
           <Text style={{ color: T.accent, fontSize: 14 }}>{'\u29D6'}</Text>
-          <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 1.3, color: T.accent, fontFamily: 'JetBrainsMono_700Bold' }}>NARRATIVE WEAVE ENGINE</Text>
+          <Text style={{ fontSize: 10, letterSpacing: 0.9, color: T.accent, fontFamily: T.F.accent }}>NARRATIVE WEAVE ENGINE</Text>
         </View>
         <Text style={{ color: T.textMid, fontSize: 12, lineHeight: 20 }}>Dump pairs that amplify each other when combined into a single post or thread.</Text>
         <View style={{ flexDirection: 'row', gap: T.S.lg, marginTop: 14 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-            <Text style={{ fontSize: 10, fontWeight: '700', color: T.text, fontFamily: 'JetBrainsMono_700Bold' }}>{availableCount}</Text>
+            <Text style={{ fontSize: 10, fontWeight: '700', color: T.text, fontFamily: T.F.bodyBold }}>{availableCount}</Text>
             <Text style={{ fontSize: 10, color: T.textLight }}>available</Text>
           </View>
-          {postedCount > 0 && <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}><Text style={{ fontSize: 10, fontWeight: '700', color: T.textLight, fontFamily: 'JetBrainsMono_700Bold' }}>{postedCount}</Text><Text style={{ fontSize: 10, color: T.textFaint }}>posted</Text></View>}
+          {postedCount > 0 && <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}><Text style={{ fontSize: 10, fontWeight: '700', color: T.textLight, fontFamily: T.F.bodyBold }}>{postedCount}</Text><Text style={{ fontSize: 10, color: T.textFaint }}>posted</Text></View>}
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-            <Text style={{ fontSize: 10, fontWeight: '700', color: T.accent, fontFamily: 'JetBrainsMono_700Bold' }}>{weaves.length}</Text>
+            <Text style={{ fontSize: 10, fontWeight: '700', color: T.accent, fontFamily: T.F.bodyBold }}>{weaves.length}</Text>
             <Text style={{ fontSize: 10, color: T.textLight }}>pairs found</Text>
           </View>
         </View>
@@ -61,19 +61,19 @@ export default function WeaveScreen({ entries, postedIds, onShipWeave }) {
                     <View>
                       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
                         <Text style={{ fontSize: 12, fontWeight: '700', color: T.text }}>WEAVE SCORE</Text>
-                        {weave.liftPercent > 0 && <Text style={{ fontSize: 10, fontWeight: '700', color: T.green, fontFamily: 'JetBrainsMono_700Bold' }}>+{weave.liftPercent}% lift</Text>}
+                        {weave.liftPercent > 0 && <Text style={{ fontSize: 10, fontWeight: '700', color: T.green, fontFamily: T.F.bodyBold }}>+{weave.liftPercent}% lift</Text>}
                       </View>
-                      <Text style={{ fontSize: 10, color: T.textLight, fontFamily: 'JetBrainsMono_400Regular' }}>base avg {weave.baseAvg} {'\u2192'} weaved {weave.weaveScore}</Text>
+                      <Text style={{ fontSize: 10, color: T.textLight, fontFamily: T.F.body }}>base avg {weave.baseAvg} {'\u2192'} weaved {weave.weaveScore}</Text>
                     </View>
                   </View>
-                  {weave.daysDiff > 0 && <View style={{ backgroundColor: T.bgSub, paddingVertical: 3, paddingHorizontal: T.S.sm, borderRadius: T.R.sm }}><Text style={{ fontSize: 9, color: T.textFaint, fontFamily: 'JetBrainsMono_400Regular' }}>{weave.daysDiff}d apart</Text></View>}
+                  {weave.daysDiff > 0 && <View style={{ backgroundColor: T.bgSub, paddingVertical: 3, paddingHorizontal: T.S.sm, borderRadius: T.R.sm }}><Text style={{ fontSize: 9, color: T.textFaint, fontFamily: T.F.body }}>{weave.daysDiff}d apart</Text></View>}
                 </View>
 
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
                   {weave.matchedPatterns.map((p, pi) => (
                     <View key={pi} style={{ flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: T.accentBg, borderWidth: 1, borderColor: T.accentBorder, paddingVertical: 3, paddingHorizontal: 10, borderRadius: T.R.sm }}>
                       <Text style={{ fontSize: 11, color: T.accent }}>{p.icon}</Text>
-                      <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 0.5, color: T.accent, fontFamily: 'JetBrainsMono_700Bold' }}>{p.label.toUpperCase()} +{p.bonus}</Text>
+                      <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 0.5, color: T.accent, fontFamily: T.F.bodyBold }}>{p.label.toUpperCase()} +{p.bonus}</Text>
                     </View>
                   ))}
                 </View>
@@ -81,24 +81,24 @@ export default function WeaveScreen({ entries, postedIds, onShipWeave }) {
                 <View style={{ gap: 6 }}>
                   <View style={{ padding: 10, paddingHorizontal: T.S.md, borderRadius: T.R.sm, backgroundColor: T.bgSub, borderLeftWidth: 3, borderLeftColor: firstTier.text }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 }}>
-                      <Text style={{ fontSize: 8, fontWeight: '800', letterSpacing: 1.1, color: T.textLight, fontFamily: 'JetBrainsMono_700Bold' }}>1ST</Text>
+                      <Text style={{ fontSize: 8, fontWeight: '800', letterSpacing: 0.8, color: T.textLight, fontFamily: T.F.bodyBold }}>1ST</Text>
                       <ScoreMeter score={first.analysis.composite} size={20} />
                     </View>
-                    <Text style={{ color: T.textMid, fontSize: 11, lineHeight: 17.5, fontFamily: 'JetBrainsMono_400Regular' }}>{first.text}</Text>
+                    <Text style={{ color: T.textMid, fontSize: 11, lineHeight: 17.5, fontFamily: T.F.body }}>{first.text}</Text>
                   </View>
                   <View style={{ alignItems: 'center', paddingVertical: 2 }}><Text style={{ fontSize: 14, color: T.accent }}>{'\u2193'}</Text></View>
                   <View style={{ padding: 10, paddingHorizontal: T.S.md, borderRadius: T.R.sm, backgroundColor: T.bgSub, borderLeftWidth: 3, borderLeftColor: secondTier.text }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 }}>
-                      <Text style={{ fontSize: 8, fontWeight: '800', letterSpacing: 1.1, color: T.textLight, fontFamily: 'JetBrainsMono_700Bold' }}>2ND</Text>
+                      <Text style={{ fontSize: 8, fontWeight: '800', letterSpacing: 0.8, color: T.textLight, fontFamily: T.F.bodyBold }}>2ND</Text>
                       <ScoreMeter score={second.analysis.composite} size={20} />
                     </View>
-                    <Text style={{ color: T.textMid, fontSize: 11, lineHeight: 17.5, fontFamily: 'JetBrainsMono_400Regular' }}>{second.text}</Text>
+                    <Text style={{ color: T.textMid, fontSize: 11, lineHeight: 17.5, fontFamily: T.F.body }}>{second.text}</Text>
                   </View>
                 </View>
 
                 {isOpen && weave.matchedPatterns.length > 0 && (
                   <View style={{ marginTop: T.S.lg, paddingTop: 14, borderTopWidth: 1, borderTopColor: T.borderLight }}>
-                    <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 1.1, color: T.textLight, fontFamily: 'JetBrainsMono_700Bold', marginBottom: 10 }}>WHY THIS WEAVE WORKS</Text>
+                    <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 0.8, color: T.textLight, fontFamily: T.F.bodyBold, marginBottom: 10 }}>WHY THIS WEAVE WORKS</Text>
                     {weave.matchedPatterns.map((p, pi) => (
                       <View key={pi} style={{ padding: 10, paddingHorizontal: 14, marginBottom: 6, borderRadius: T.R.sm, backgroundColor: T.accentBg, borderWidth: 1, borderColor: T.accentBorder }}>
                         <Text style={{ fontSize: 12, fontWeight: '700', color: T.text, marginBottom: 3 }}>{p.icon} {p.label}</Text>

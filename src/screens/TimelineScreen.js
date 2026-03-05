@@ -36,19 +36,19 @@ export default function TimelineScreen({ entries, postedIds }) {
       <View style={{ flexDirection: 'row', gap: 10, marginBottom: T.S.xxl }}>
         {[{ v: `${entries.length}`, l: "DUMPS" }, { v: `${avgScore}`, l: "AVG SCORE" }, { v: `${tierCounts["STORY-READY"]}`, l: "STORY-READY" }].map((s, i) => (
           <View key={i} style={{ flex: 1, backgroundColor: T.bgCard, borderWidth: 1, borderColor: T.border, borderRadius: T.R.lg, padding: 14, alignItems: 'center', ...T.shadow }}>
-            <Text style={{ fontSize: 22, fontWeight: '700', color: T.text, fontFamily: 'JetBrainsMono_700Bold' }}>{s.v}</Text>
-            <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 1.1, color: T.textLight, fontFamily: 'JetBrainsMono_700Bold', marginTop: 2 }}>{s.l}</Text>
+            <Text style={{ fontSize: 22, color: T.text, fontFamily: T.F.accent }}>{s.v}</Text>
+            <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 0.8, color: T.textLight, fontFamily: T.F.bodyBold, marginTop: 2 }}>{s.l}</Text>
           </View>
         ))}
       </View>
 
       <View style={{ flexDirection: 'row', gap: 6, marginBottom: T.S.xxl, flexWrap: 'wrap' }}>
         <TouchableOpacity onPress={() => setFilter(null)} activeOpacity={0.7} style={{ backgroundColor: !filter ? T.accent : 'transparent', borderWidth: 1, borderColor: !filter ? T.accent : T.border, borderRadius: T.R.pill, paddingVertical: 5, paddingHorizontal: T.S.md }}>
-          <Text style={{ color: !filter ? '#FFFEF9' : T.textLight, fontSize: 10, fontWeight: '700', fontFamily: 'JetBrainsMono_700Bold', letterSpacing: 0.5 }}>ALL</Text>
+          <Text style={{ color: !filter ? '#FFFEF9' : T.textLight, fontSize: 10, fontWeight: '700', fontFamily: T.F.bodyBold, letterSpacing: 0.5 }}>ALL</Text>
         </TouchableOpacity>
         {tiers.map(t => (
           <TouchableOpacity key={t} onPress={() => setFilter(filter === t ? null : t)} activeOpacity={0.7} style={{ backgroundColor: filter === t ? TIER_STYLES[t].bg : 'transparent', borderWidth: 1, borderColor: filter === t ? TIER_STYLES[t].border : T.border, borderRadius: T.R.pill, paddingVertical: 5, paddingHorizontal: T.S.md }}>
-            <Text style={{ color: filter === t ? TIER_STYLES[t].text : T.textLight, fontSize: 10, fontWeight: '700', fontFamily: 'JetBrainsMono_700Bold', letterSpacing: 0.3 }}>{t} ({tierCounts[t]})</Text>
+            <Text style={{ color: filter === t ? TIER_STYLES[t].text : T.textLight, fontSize: 10, fontWeight: '700', fontFamily: T.F.bodyBold, letterSpacing: 0.3 }}>{t} ({tierCounts[t]})</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -62,7 +62,7 @@ export default function TimelineScreen({ entries, postedIds }) {
                 <View style={{ width: 5, height: 5, borderRadius: 2.5, backgroundColor: T.accent }} />
               </View>
               <Text style={{ fontSize: 12, fontWeight: '600', color: T.textMid }}>{day}</Text>
-              <Text style={{ fontSize: 10, color: T.textFaint, fontFamily: 'JetBrainsMono_400Regular' }}>{dayEntries.length} dump{dayEntries.length > 1 ? 's' : ''}</Text>
+              <Text style={{ fontSize: 10, color: T.textFaint, fontFamily: T.F.body }}>{dayEntries.length} dump{dayEntries.length > 1 ? 's' : ''}</Text>
             </View>
             {dayEntries.map(entry => {
               const ts = TIER_STYLES[entry.analysis.tier];
@@ -72,11 +72,11 @@ export default function TimelineScreen({ entries, postedIds }) {
                   <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 10 }}>
                     <ScoreMeter score={entry.analysis.composite} size={28} />
                     <View style={{ flex: 1 }}>
-                      <Text style={{ color: T.text, fontSize: 12, lineHeight: 19, fontFamily: 'JetBrainsMono_400Regular', textDecorationLine: isPosted ? 'line-through' : 'none' }}>{entry.text}</Text>
+                      <Text style={{ color: T.text, fontSize: 12, lineHeight: 19, fontFamily: T.F.body, textDecorationLine: isPosted ? 'line-through' : 'none' }}>{entry.text}</Text>
                       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 4, marginTop: 6 }}>
                         {isPosted ? (
                           <View style={{ backgroundColor: T.bgSub, borderWidth: 1, borderColor: T.border, paddingVertical: 2, paddingHorizontal: 8, borderRadius: T.R.sm }}>
-                            <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 0.9, color: T.textLight, fontFamily: 'JetBrainsMono_700Bold' }}>POSTED {'\u2713'}</Text>
+                            <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 0.6, color: T.textLight, fontFamily: T.F.bodyBold }}>POSTED {'\u2713'}</Text>
                           </View>
                         ) : (
                           <>

@@ -32,7 +32,7 @@ export default function ThreadsScreen({ threads }) {
                   <Text style={{ fontSize: 13, fontWeight: '700', color: T.text }}>{thread.label}</Text>
                 </View>
                 <View style={{ backgroundColor: T.accentBg, paddingVertical: 2, paddingHorizontal: 10, borderRadius: T.R.sm }}>
-                  <Text style={{ color: T.accent, fontSize: 11, fontWeight: '700', fontFamily: 'JetBrainsMono_700Bold' }}>{thread.count}</Text>
+                  <Text style={{ color: T.accent, fontSize: 11, fontWeight: '700', fontFamily: T.F.bodyBold }}>{thread.count}</Text>
                 </View>
               </View>
               <Text style={{ color: T.textLight, fontSize: 11, marginTop: T.S.sm, marginLeft: 26, lineHeight: 16.5 }}>{thread.desc}</Text>
@@ -41,9 +41,9 @@ export default function ThreadsScreen({ threads }) {
               <View style={{ paddingTop: T.S.sm, paddingLeft: 18, borderLeftWidth: 2, borderLeftColor: T.accentBorder, marginLeft: 18 }}>
                 {thread.entries.map((e) => (
                   <View key={e.id} style={{ padding: 10, paddingHorizontal: 14, marginBottom: 4 }}>
-                    <Text style={{ color: T.textMid, fontSize: 12, lineHeight: 19, fontFamily: 'JetBrainsMono_400Regular' }}>{e.text}</Text>
+                    <Text style={{ color: T.textMid, fontSize: 12, lineHeight: 19, fontFamily: T.F.body }}>{e.text}</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 6 }}>
-                      <Text style={{ fontSize: 10, color: T.textFaint, fontFamily: 'JetBrainsMono_400Regular' }}>{relTime(e.timestamp)}</Text>
+                      <Text style={{ fontSize: 10, color: T.textFaint, fontFamily: T.F.body }}>{relTime(e.timestamp)}</Text>
                       <ScoreMeter score={e.analysis.composite} size={22} />
                     </View>
                   </View>
